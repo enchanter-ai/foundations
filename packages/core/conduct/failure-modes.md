@@ -6,7 +6,7 @@ Audience: any agent that logs failure observations. A controlled vocabulary for 
 
 Accumulation only learns if failure reasons are comparable. "It got worse" is not a signal — "F04 task-drift during axis-3 tightening" is. Every log row tags exactly one code.
 
-## The 28 canonical codes
+## The 29 canonical codes
 
 ### Generation failures
 
@@ -29,6 +29,7 @@ Accumulation only learns if failure reasons are comparable. "It got worse" is no
 | F10 | Destructive without confirmation | `rm`, `reset --hard`, `force push` without explicit yes | See [`./verification.md`](./verification.md) § Dry-run for destructive ops |
 | F26 | Reversibility blindness | Agent took a non-destructive but irreversible action without first classifying its reversibility | See [`./reversibility-foresight.md`](./reversibility-foresight.md) — classify before acting; confirmation scales with tier |
 | F28 | Skill-discoverability failure | Authored new tool/script/skill/module when an existing one in the project already covered the use case | See [`./prior-art-discovery.md`](./prior-art-discovery.md) — run the 5-target discovery pass before authoring; reuse, extend, or author-new with stated reason |
+| F29 | Premise-unvalidated build | Built/crafted a new artifact (product, engine, tool, prompt, module) on request without first testing whether it should exist; ran the worth-it / prior-art / conduct-vs-engine gate only after heavy investment, or never. Process-rigor (craft → harden → converge) mistaken for strategic judgment | See [`./doubt-engine.md`](./doubt-engine.md) § Build-premise gate — run the 3-question gate BEFORE the first craft step; conduct over engine, lean over full |
 
 ### Reasoning failures
 
@@ -101,6 +102,7 @@ Some codes are single-occurrence — log and continue. Some require stopping:
 | F26 | Revert if possible, log, surface to principal | Halt — agent's reversibility judgment is calibrated wrong; require explicit confirmation on all actions until reset |
 | F27 | Verify the cited surface; re-ground or discard the entry; proceed | Audit the memory store — systemic staleness; sweep by decay-signal class |
 | F28 | Revert the new artifact, run discovery pass, reconcile with prior art | Halt — repo has fragmenting capability surfaces; escalate to principal for a consolidation pass |
+| F29 | Stop crafting; run the build-premise gate; state the worth-it verdict and propose the lean carrier (conduct over engine) before resuming | Halt — premise-validation is being skipped on build requests; surface the verdict to the principal before any further authoring |
 
 ## Anti-patterns in logging
 
