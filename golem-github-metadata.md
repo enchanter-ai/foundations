@@ -2,9 +2,9 @@
 
 ## Description
 
-> Kill the silent zero. Compile-once expression engine that catches every undefined variable at parse time and hardwires deterministic cost gates and routing policies into AI agent pipelines.
+> Kill the silent zero. Compile-once expression engine — typed errors, "did you mean" hints, and deterministic policy gates for AI agents.
 
-**Character count:** 190
+**Character count:** 138
 
 ---
 
@@ -39,4 +39,4 @@ All enchanter-ai descriptions follow two sentences:
 | pech | FinOps for autonomous agents. Track per-tier token burn, forecast budgets via exponential smoothing, and trigger graceful AI degradation. |
 | naga | Source-as-spec architecture enforcer. Uses deep AST fingerprinting to ensure AI-generated code perfectly mirrors your internal coding standards. |
 | schematic | Bootstrap production-ready AI agents instantly. The official template injecting shared behavioral contracts and strict execution engines into new plugins. |
-| **golem** | **Kill the silent zero. Compile-once expression engine that catches every undefined variable at parse time and hardwires deterministic cost gates and routing policies into AI agent pipelines.** |
+| **golem** | **Kill the silent zero. Compile-once expression engine — typed errors, "did you mean" hints, and deterministic policy gates for AI agents.** |
