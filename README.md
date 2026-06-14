@@ -29,7 +29,7 @@ The behavioral substrate for building durable AI agents — conduct, engines, ta
 
 **In plain English:** Most agent stacks ship with prompts, tools, and hopes. The thing that actually keeps an agent from refactoring code you didn't ask it to touch, or pushing to main after you said not to, isn't another tool — it's a behavior rule that survives the long context. vis is the dependency-free pile of those rules, plus the math, taxonomy, and host recipes around them.
 
-**Technically:** 37 conduct modules across 7 packages (`core` / `skills` / `orchestration` / `safety` / `web` / `memory` / `cost`). 12 algorithmic engines with paper-backed derivations (Aho-Corasick pattern detection, Shannon entropy, Beta-Bernoulli trust scoring, Markov drift, Hunt-Szymanski LCS, Zhang-Shasha tree-edit, Tarjan SCC, Wald SPRT, Jaccard-cosine boundary segmentation, contextual LLM bandit, agentproof DFA, sycophancy calibration). 21 named failure codes (F01–F21) with testable counters, mapped to a 5-axis hybrid taxonomy (memory / reflection / planning / action / system) and 21 incident-response runbooks. 9 adoption recipes (Claude Code, OpenAI Agents SDK, Cursor, LangChain, Pydantic-AI, BAML, raw system-prompt, eval-harnesses, stupid-agent-review). Zero runtime dependencies — pure prose + math, loadable into any system that accepts text instructions.
+**Technically:** 37 conduct modules across 7 conduct packages (`core` / `skills` / `orchestration` / `safety` / `web` / `memory` / `cost`), plus a `hooks` package shipping 6 runtime advisory hooks (the **enchanter-hooks** plugin, installable via the vis marketplace). 12 algorithmic engines with paper-backed derivations (Aho-Corasick pattern detection, Shannon entropy, Beta-Bernoulli trust scoring, Markov drift, Hunt-Szymanski LCS, Zhang-Shasha tree-edit, Tarjan SCC, Wald SPRT, Jaccard-cosine boundary segmentation, contextual LLM bandit, agentproof DFA, sycophancy calibration). 21 named failure codes (F01–F21) with testable counters, mapped to a 5-axis hybrid taxonomy (memory / reflection / planning / action / system) and 21 incident-response runbooks. 9 adoption recipes (Claude Code, OpenAI Agents SDK, Cursor, LangChain, Pydantic-AI, BAML, raw system-prompt, eval-harnesses, stupid-agent-review). Zero runtime dependencies — pure prose + math, loadable into any system that accepts text instructions.
 
 ## Origin
 
@@ -132,9 +132,14 @@ vis/
 │   │                                  adaptive-adversary-baseline, provider-resilience
 │   ├── memory/                      ← memory hygiene
 │   │   └── conduct/                 ← memory-hygiene.md
-│   └── cost/                        ← cost + latency + eval harnesses
-│       ├── conduct/                 ← cost-accounting.md, latency-budgeting.md
-│       └── recipes/                 ← eval-harnesses.md
+│   ├── cost/                        ← cost + latency + eval harnesses
+│   │   ├── conduct/                 ← cost-accounting.md, latency-budgeting.md
+│   │   └── recipes/                 ← eval-harnesses.md
+│   └── hooks/                        ← runtime advisory hooks (the enchanter-hooks plugin)
+│       ├── hooks/hooks.json         ← 6 hooks: SessionStart(compact) / PreToolUse / PostToolUse
+│       ├── scripts/                 ← compact-checkpoint, secret-scan, config-self-edit-guard,
+│       │                              reversibility-guard, debug-hygiene, post-write-validate
+│       └── .claude-plugin/          ← plugin.json (installable via the vis marketplace)
 ├── docs/                            ← cross-cutting docs: architecture overview, ADRs
 │                                       (0001 four-layers, 0002 taxonomy expansion),
 │                                       CROSS_REPO_VERSIONING.md
@@ -143,7 +148,7 @@ vis/
 └── package.json                     ← changesets meta-package for cross-repo versioning
 ```
 
-Counts as of the latest tag: **37 conduct modules** across core / skills / orchestration / safety / web / memory / cost · **12 engines** in `orchestration/engines/` · **21 failure codes** split F01–F14 (core) and F15–F21 (safety) · **21 runbooks** mirroring the F-codes · **9 recipes** (8 in `skills/recipes/` + `cost/recipes/eval-harnesses.md`).
+Counts as of the latest tag: **37 conduct modules** across core / skills / orchestration / safety / web / memory / cost · **12 engines** in `orchestration/engines/` · **21 failure codes** split F01–F14 (core) and F15–F21 (safety) · **21 runbooks** mirroring the F-codes · **9 recipes** (8 in `skills/recipes/` + `cost/recipes/eval-harnesses.md`) · **6 runtime advisory hooks** in `hooks/` (the **enchanter-hooks** plugin).
 
 ---
 
@@ -213,7 +218,7 @@ In your project's `CLAUDE.md`:
 - @shared/vis/packages/core/conduct/failure-modes.md
 ```
 
-For runtime enforcement (not just description), wire hooks per [`packages/skills/recipes/claude-code.md`](packages/skills/recipes/claude-code.md) § Enforcement wiring. The framework now includes copy-paste shell skeletons in [`packages/core/conduct/hooks.md`](packages/core/conduct/hooks.md) § Starter patterns — PreToolUse deny, PostToolUse inject, Stop notify.
+For runtime enforcement (not just description), wire hooks per [`packages/skills/recipes/claude-code.md`](packages/skills/recipes/claude-code.md) § Enforcement wiring. The framework now includes copy-paste shell skeletons in [`packages/core/conduct/hooks.md`](packages/core/conduct/hooks.md) § Starter patterns — PreToolUse deny, PostToolUse inject, Stop notify. Or install them ready-made — `/plugin marketplace add enchanter-ai/vis` then `/plugin install enchanter-hooks@vis` — the **enchanter-hooks** plugin ships 6 advisory, fail-open hooks (post-compaction checkpoint, secret scan, config self-edit guard, reversibility guard, debug-hygiene, syntax validation) that activate without editing `settings.json`.
 
 ### OpenAI Agents SDK
 

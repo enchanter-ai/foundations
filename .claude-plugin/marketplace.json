@@ -2,7 +2,7 @@
   "name": "vis",
   "owner": { "name": "enchanter-ai" },
   "metadata": {
-    "description": "Behavioral substrate for the @enchanter-ai ecosystem — conduct-as-code, failure taxonomy, engines, recipes. Split into 7 focused plugins.",
+    "description": "Behavioral substrate for the @enchanter-ai ecosystem — conduct-as-code, failure taxonomy, engines, recipes. Split into 8 focused plugins.",
     "version": "0.6.0",
     "pluginRoot": "./packages"
   },
@@ -13,6 +13,7 @@
     { "name": "enchanter-web",           "source": "web",           "version": "0.6.0", "description": "Live web access conduct: cache, dedup, budget, cite hygiene." },
     { "name": "enchanter-memory",        "source": "memory",        "version": "0.6.0", "description": "Cross-session memory hygiene: working memory, decay, recall verification." },
     { "name": "enchanter-cost",          "source": "cost",          "version": "0.6.0", "description": "Session economics: cost-accounting, latency-budgeting, eval-harnesses recipe." },
-    { "name": "enchanter-safety",        "source": "safety",        "version": "0.6.0", "description": "Safety + compliance + security + operator-wiring: refusal-and-recovery, F15-F21 taxonomy, FedRAMP/ISO/SOC2/NIST evidence, pentest, synthetic-fire, OTLP/PagerDuty/Sentry wiring." }
+    { "name": "enchanter-safety",        "source": "safety",        "version": "0.6.0", "description": "Safety + compliance + security + operator-wiring: refusal-and-recovery, F15-F21 taxonomy, FedRAMP/ISO/SOC2/NIST evidence, pentest, synthetic-fire, OTLP/PagerDuty/Sentry wiring." },
+    { "name": "enchanter-hooks",         "source": "hooks",         "version": "0.6.0", "description": "Advisory Claude Code hooks (fail-open, deterministic, quiet) that enforce the conduct substrate at lifecycle events: post-compaction checkpoint (F03), pre-write secret scan, post-edit debug-artifact hygiene. Install activates hooks natively — no settings.json editing." }
   ]
 }

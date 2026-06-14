@@ -1,0 +1,6 @@
+{
+  "name": "enchanter-hooks",
+  "version": "0.6.0",
+  "description": "vis-governed advisory Claude Code hooks: deterministic, fail-open enforcement of the conduct substrate at lifecycle events in-context conduct cannot self-time. v0.6 ships eleven quiet, conditional hooks (speak only when they have something to say) across SessionStart / PreToolUse / PostToolUse: post-compaction checkpoint (F03), secret scan, config self-edit guard, substrate-engine-write guard (F24), append-only-ledger guard (F14), artifact-authorship guard, bash reversibility guard (F26), debug-artifact hygiene, syntax validation (F02/F14), stale-pathref guard (F02/F27), and machine-path-leak guard. Every hook exits 0 and never blocks.",
+  "dependencies": ["enchanter-core"]
+}
