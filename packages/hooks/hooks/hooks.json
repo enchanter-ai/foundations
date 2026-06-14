@@ -1,5 +1,5 @@
 {
-  "description": "enchanter-hooks — vis advisory Claude Code hooks. Deterministic triggers, fail-open (every hook exits 0, never blocks), and quiet (each emits nothing unless it has something to say). Each maps to a vis F-code. Self-contained scripts (plugin-cache-safe) under scripts/, referenced via ${CLAUDE_PLUGIN_ROOT}.",
+  "description": "enchanter-hooks — vis advisory Claude Code hooks. Deterministic triggers, fail-open (every hook exits 0, never blocks), and quiet (each emits nothing unless it has something to say). Each maps to a vis F-code or eval countermeasure. Self-contained scripts (plugin-cache-safe) under scripts/, referenced via ${CLAUDE_PLUGIN_ROOT}.",
   "hooks": {
     "SessionStart": [
       {
@@ -16,7 +16,8 @@
           { "type": "command", "command": "bash \"${CLAUDE_PLUGIN_ROOT}/scripts/secret-scan.sh\"", "timeout": 5 },
           { "type": "command", "command": "bash \"${CLAUDE_PLUGIN_ROOT}/scripts/config-self-edit-guard.sh\"", "timeout": 5 },
           { "type": "command", "command": "bash \"${CLAUDE_PLUGIN_ROOT}/scripts/substrate-engine-write-guard.sh\"", "timeout": 5 },
-          { "type": "command", "command": "bash \"${CLAUDE_PLUGIN_ROOT}/scripts/artifact-authorship-guard.sh\"", "timeout": 5 }
+          { "type": "command", "command": "bash \"${CLAUDE_PLUGIN_ROOT}/scripts/artifact-authorship-guard.sh\"", "timeout": 5 },
+          { "type": "command", "command": "bash \"${CLAUDE_PLUGIN_ROOT}/scripts/dependency-intent-receipt.sh\"", "timeout": 5 }
         ]
       },
       {
@@ -28,7 +29,8 @@
       {
         "matcher": "Bash",
         "hooks": [
-          { "type": "command", "command": "bash \"${CLAUDE_PLUGIN_ROOT}/scripts/reversibility-guard.sh\"", "timeout": 5 }
+          { "type": "command", "command": "bash \"${CLAUDE_PLUGIN_ROOT}/scripts/reversibility-guard.sh\"", "timeout": 5 },
+          { "type": "command", "command": "bash \"${CLAUDE_PLUGIN_ROOT}/scripts/dependency-intent-receipt.sh\"", "timeout": 5 }
         ]
       }
     ],
@@ -40,6 +42,28 @@
           { "type": "command", "command": "bash \"${CLAUDE_PLUGIN_ROOT}/scripts/post-write-validate.sh\"", "timeout": 5 },
           { "type": "command", "command": "bash \"${CLAUDE_PLUGIN_ROOT}/scripts/stale-pathref-guard.sh\"", "timeout": 5 },
           { "type": "command", "command": "bash \"${CLAUDE_PLUGIN_ROOT}/scripts/machine-path-leak-guard.sh\"", "timeout": 5 }
+        ]
+      },
+      {
+        "matcher": "Read|Grep|WebFetch",
+        "hooks": [
+          { "type": "command", "command": "bash \"${CLAUDE_PLUGIN_ROOT}/scripts/context-taint-scan.sh\"", "timeout": 5 }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          { "type": "command", "command": "bash \"${CLAUDE_PLUGIN_ROOT}/scripts/delegation-scope-guard.sh\"", "timeout": 5 }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          { "type": "command", "command": "bash \"${CLAUDE_PLUGIN_ROOT}/scripts/evidence-gate.sh\"", "timeout": 5 }
         ]
       }
     ]

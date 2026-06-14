@@ -1,6 +1,6 @@
 # Failure-Mode Taxonomy
 
-Audience: anyone maintaining or extending the failure taxonomy. 21 canonical codes (F01–F21), one doc per code, growable.
+Audience: anyone maintaining or extending the failure taxonomy. 22 taxonomy-doc'd codes (F01–F21 + F34), one doc per code, growable. Codes F22–F33 are defined inline in their originating conduct modules (capability-fidelity, context-budget, memory-discipline, and the `web/conduct/` resilience set), not as docs here; F34 gets a full doc because it is a first-class, host-agnostic safety failure mode.
 
 This folder is the **canonical source** of failure-code definitions. The summary in [`../conduct/failure-modes.md`](../conduct/failure-modes.md) is the at-a-glance table; the per-code docs here are where the *signature*, *counter*, and *examples* live in detail. If they conflict, this folder wins.
 
@@ -46,6 +46,10 @@ Free-text failure logs don't compound. A taxonomy with named codes does — but 
 - [F19 — Alignment faking *(awareness)*](./f19-alignment-faking.md)
 - [F20 — Sandbagging *(awareness)*](./f20-sandbagging.md)
 - [F21 — Weaponized tool use](./f21-weaponized-tool-use.md)
+
+### Trust-boundary failures
+
+- [F34 — Untrusted-context injection](../../safety/taxonomy/f34-untrusted-context-injection.md) *(indirect prompt injection; lives in `safety/taxonomy/`)*
 
 ## Per-doc shape
 

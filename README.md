@@ -9,7 +9,7 @@
   <img alt="7 packages" src="https://img.shields.io/badge/Packages-7-bc8cff?style=for-the-badge">
   <img alt="37 conduct modules" src="https://img.shields.io/badge/Modules-37-58a6ff?style=for-the-badge">
   <img alt="12 engines" src="https://img.shields.io/badge/Engines-12-d29922?style=for-the-badge">
-  <img alt="21 failure codes" src="https://img.shields.io/badge/F--codes-F01%E2%80%93F21-f0883e?style=for-the-badge">
+  <img alt="22 failure codes" src="https://img.shields.io/badge/F--codes-F01%E2%80%93F21%2C+F34-f0883e?style=for-the-badge">
   <a href="https://www.repostatus.org/#active"><img alt="Project Status: Active" src="https://www.repostatus.org/badges/latest/active.svg"></a>
 </p>
 
@@ -17,7 +17,7 @@
 
 The behavioral substrate for building durable AI agents — conduct, engines, taxonomy, and the math behind all three.
 
-**37 conduct modules. 12 engines. 21 failure codes. 9 recipes. Zero runtime dependencies.**
+**37 conduct modules. 12 engines. 22 failure codes. 10 recipes. Zero runtime dependencies.**
 
 > A 12-line `paginate()` function has an off-by-one. The PR title says *"fix the off-by-one in pagination."* The agent rewrites it as a `Paginator` class, adds a docstring nobody asked for, renames `perPage` to `n`, and slips the actual one-character fix onto line 4. Type-check passes. Tests pass. The bug is fixed, but the codebase grew a new pattern nobody decided on, and the diff buries the fix under 30 lines of unsolicited refactor (F04 task drift).
 >
@@ -29,7 +29,7 @@ The behavioral substrate for building durable AI agents — conduct, engines, ta
 
 **In plain English:** Most agent stacks ship with prompts, tools, and hopes. The thing that actually keeps an agent from refactoring code you didn't ask it to touch, or pushing to main after you said not to, isn't another tool — it's a behavior rule that survives the long context. vis is the dependency-free pile of those rules, plus the math, taxonomy, and host recipes around them.
 
-**Technically:** 37 conduct modules across 7 conduct packages (`core` / `skills` / `orchestration` / `safety` / `web` / `memory` / `cost`), plus a `hooks` package shipping 6 runtime advisory hooks (the **enchanter-hooks** plugin, installable via the vis marketplace). 12 algorithmic engines with paper-backed derivations (Aho-Corasick pattern detection, Shannon entropy, Beta-Bernoulli trust scoring, Markov drift, Hunt-Szymanski LCS, Zhang-Shasha tree-edit, Tarjan SCC, Wald SPRT, Jaccard-cosine boundary segmentation, contextual LLM bandit, agentproof DFA, sycophancy calibration). 21 named failure codes (F01–F21) with testable counters, mapped to a 5-axis hybrid taxonomy (memory / reflection / planning / action / system) and 21 incident-response runbooks. 9 adoption recipes (Claude Code, OpenAI Agents SDK, Cursor, LangChain, Pydantic-AI, BAML, raw system-prompt, eval-harnesses, stupid-agent-review). Zero runtime dependencies — pure prose + math, loadable into any system that accepts text instructions.
+**Technically:** 37 conduct modules across 7 conduct packages (`core` / `skills` / `orchestration` / `safety` / `web` / `memory` / `cost`), plus a `hooks` package shipping 15 runtime advisory hooks (the **enchanter-hooks** plugin, installable via the vis marketplace). 12 algorithmic engines with paper-backed derivations (Aho-Corasick pattern detection, Shannon entropy, Beta-Bernoulli trust scoring, Markov drift, Hunt-Szymanski LCS, Zhang-Shasha tree-edit, Tarjan SCC, Wald SPRT, Jaccard-cosine boundary segmentation, contextual LLM bandit, agentproof DFA, sycophancy calibration). 22 named failure codes (F01–F21 + F34, the taxonomy-doc'd set) with testable counters, mapped to a 5-axis hybrid taxonomy (memory / reflection / planning / action / system) and 22 incident-response runbooks. 10 adoption recipes (Claude Code, OpenAI Agents SDK, Cursor, LangChain, Pydantic-AI, BAML, raw system-prompt, eval-harnesses, stupid-agent-review, agent-runtime-boundaries). Zero runtime dependencies — pure prose + math, loadable into any system that accepts text instructions.
 
 ## Origin
 
@@ -107,9 +107,9 @@ vis/
 │   │   └── CLAUDE.md                ← repo-level instructions for agents editing core
 │   ├── skills/                      ← author-facing skill conduct + host recipes
 │   │   ├── conduct/                 ← formatting.md, skill-authoring.md
-│   │   └── recipes/                 ← 8 adoption recipes (claude-code, openai-agents, cursor,
+│   │   └── recipes/                 ← 9 adoption recipes (claude-code, openai-agents, cursor,
 │   │                                  langchain, pydantic-ai, baml, system-prompt,
-│   │                                  stupid-agent-review)
+│   │                                  stupid-agent-review, agent-runtime-boundaries)
 │   ├── orchestration/               ← multi-agent + engines
 │   │   ├── conduct/                 ← eval-driven-self-improvement, multi-turn-negotiation,
 │   │   │                              task-decomposition, inference-substrate
@@ -121,8 +121,8 @@ vis/
 │   │   └── templates/               ← bootstrap.sh / .ps1, sessionstart hook, vis-verify.yml
 │   ├── safety/                      ← multi-agent + alignment cluster, compliance & operator wiring
 │   │   ├── conduct/                 ← refusal-and-recovery.md
-│   │   ├── taxonomy/                ← F15–F21 (multi-agent + alignment)
-│   │   ├── runbooks/                ← F15–F21 incident-response runbooks
+│   │   ├── taxonomy/                ← F15–F21 (multi-agent + alignment) + F34 (untrusted-context injection)
+│   │   ├── runbooks/                ← F15–F21 + F34 incident-response runbooks
 │   │   ├── compliance/              ← SOC 2, ISO 42001, FedRAMP, NIST AI RMF readiness
 │   │   ├── security/                ← pentest + synthetic-fire artifacts
 │   │   └── operator-wiring-2026-05/ ← Day-1 Datadog / Sentry / PagerDuty / Slack / Splunk wiring
@@ -136,9 +136,11 @@ vis/
 │   │   ├── conduct/                 ← cost-accounting.md, latency-budgeting.md
 │   │   └── recipes/                 ← eval-harnesses.md
 │   └── hooks/                        ← runtime advisory hooks (the enchanter-hooks plugin)
-│       ├── hooks/hooks.json         ← 6 hooks: SessionStart(compact) / PreToolUse / PostToolUse
-│       ├── scripts/                 ← compact-checkpoint, secret-scan, config-self-edit-guard,
-│       │                              reversibility-guard, debug-hygiene, post-write-validate
+│       ├── hooks/hooks.json         ← 15 hooks: SessionStart(compact) / PreToolUse / PostToolUse / SubagentStart / Stop
+│       ├── scripts/                 ← compact-checkpoint, secret-scan, config-self-edit-guard, reversibility-guard,
+│       │                              debug-hygiene, post-write-validate, …, context-taint-scan, dependency-intent-receipt,
+│       │                              delegation-scope-guard, evidence-gate (v0.7)
+│       ├── tests/                   ← verify-hooks.sh (package self-test: 74 checks)
 │       └── .claude-plugin/          ← plugin.json (installable via the vis marketplace)
 ├── docs/                            ← cross-cutting docs: architecture overview, ADRs
 │                                       (0001 four-layers, 0002 taxonomy expansion),
@@ -148,7 +150,7 @@ vis/
 └── package.json                     ← changesets meta-package for cross-repo versioning
 ```
 
-Counts as of the latest tag: **37 conduct modules** across core / skills / orchestration / safety / web / memory / cost · **12 engines** in `orchestration/engines/` · **21 failure codes** split F01–F14 (core) and F15–F21 (safety) · **21 runbooks** mirroring the F-codes · **9 recipes** (8 in `skills/recipes/` + `cost/recipes/eval-harnesses.md`) · **6 runtime advisory hooks** in `hooks/` (the **enchanter-hooks** plugin).
+Counts as of the latest tag: **37 conduct modules** across core / skills / orchestration / safety / web / memory / cost · **12 engines** in `orchestration/engines/` · **22 taxonomy-doc'd failure codes** split F01–F14 (core) and F15–F21 + F34 (safety) · **22 runbooks** mirroring those codes · **10 recipes** (9 in `skills/recipes/` + `cost/recipes/eval-harnesses.md`) · **15 runtime advisory hooks** in `hooks/` (the **enchanter-hooks** plugin).
 
 ---
 
@@ -192,12 +194,13 @@ Don't load everything. Start with the failure mode you're seeing, pull only the 
 | Working memory degrading across turns | `context.md` + `memory-hygiene.md` |
 | Subagent doesn't inherit conduct | `delegation.md` (Conduct propagation) |
 | Need runtime gates, not just rules | `hooks.md` (Starter patterns) + `packages/skills/recipes/claude-code.md` |
+| Agent obeys instructions hidden in files / tool output / retrieved docs | `packages/safety/taxonomy/f34-untrusted-context-injection.md` + `packages/skills/recipes/agent-runtime-boundaries.md` |
 | Latency unpredictable in long workflows | `latency-budgeting.md` |
 | Agent refuses benign requests / over-refuses | `refusal-and-recovery.md` |
 | Want to learn from observed failures | `eval-driven-self-improvement.md` + `precedent.md` |
 | User pressures across turns until you flip | `multi-turn-negotiation.md` + `doubt-engine.md` |
 | Doubt-engine F01-counter prose isn't measurable | `packages/orchestration/engines/calibration.md` |
-| Failure happened — need incident steps | `packages/core/runbooks/F<NN>.md` (F01–F14) or `packages/safety/runbooks/F<NN>.md` (F15–F21) |
+| Failure happened — need incident steps | `packages/core/runbooks/F<NN>.md` (F01–F14) or `packages/safety/runbooks/F<NN>.md` (F15–F21, F34) |
 | Want to A/B-validate a module's impact | `packages/orchestration/docs/self-test.md` |
 | Evaluating agent conduct | `packages/cost/recipes/eval-harnesses.md` |
 
@@ -218,7 +221,7 @@ In your project's `CLAUDE.md`:
 - @shared/vis/packages/core/conduct/failure-modes.md
 ```
 
-For runtime enforcement (not just description), wire hooks per [`packages/skills/recipes/claude-code.md`](packages/skills/recipes/claude-code.md) § Enforcement wiring. The framework now includes copy-paste shell skeletons in [`packages/core/conduct/hooks.md`](packages/core/conduct/hooks.md) § Starter patterns — PreToolUse deny, PostToolUse inject, Stop notify. Or install them ready-made — `/plugin marketplace add enchanter-ai/vis` then `/plugin install enchanter-hooks@vis` — the **enchanter-hooks** plugin ships 6 advisory, fail-open hooks (post-compaction checkpoint, secret scan, config self-edit guard, reversibility guard, debug-hygiene, syntax validation) that activate without editing `settings.json`.
+For runtime enforcement (not just description), wire hooks per [`packages/skills/recipes/claude-code.md`](packages/skills/recipes/claude-code.md) § Enforcement wiring. The framework now includes copy-paste shell skeletons in [`packages/core/conduct/hooks.md`](packages/core/conduct/hooks.md) § Starter patterns — PreToolUse deny, PostToolUse inject, Stop notify. Or install them ready-made — `/plugin marketplace add enchanter-ai/vis` then `/plugin install enchanter-hooks@vis` — the **enchanter-hooks** plugin ships 15 advisory, fail-open hooks (post-compaction checkpoint + obligation anchor, secret scan, config self-edit guard, reversibility guard, debug-hygiene, syntax validation, context-taint scan, dependency-intent receipt, delegation-scope guard, evidence gate, and more) that activate without editing `settings.json`.
 
 ### OpenAI Agents SDK
 
@@ -303,7 +306,7 @@ A conduct module the subagent never sees can't shape its behavior. [`packages/co
 
 ### A failure taxonomy that compounds
 
-Free-text learning notes don't compound. Tagged ones do. The taxonomy ships 21 canonical codes split across two packages — F01–F14 in [`packages/core/taxonomy/`](packages/core/taxonomy/) (generation / action / reasoning) and F15–F21 in [`packages/safety/taxonomy/`](packages/safety/taxonomy/) (multi-agent + alignment). Each code has a precise signature, a testable counter, and an escalation rule:
+Free-text learning notes don't compound. Tagged ones do. The taxonomy ships 22 doc'd codes split across two packages — F01–F14 in [`packages/core/taxonomy/`](packages/core/taxonomy/) (generation / action / reasoning) and F15–F21 + F34 in [`packages/safety/taxonomy/`](packages/safety/taxonomy/) (multi-agent + alignment + trust-boundary). Each code has a precise signature, a testable counter, and an escalation rule:
 
 **Generation failures** — `packages/core/taxonomy/`
 - F01 Sycophancy · F02 Fabrication · F03 Context decay · F04 Task drift · F05 Instruction attenuation
@@ -315,7 +318,7 @@ Free-text learning notes don't compound. Tagged ones do. The taxonomy ships 21 c
 - F11 Reward hacking · F12 Degeneration loop · F13 Distractor pollution · F14 Version drift
 
 **Multi-agent and alignment failures** — `packages/safety/taxonomy/`
-- F15 Inter-agent misalignment · F16 Task-verification skip · F17 System-design brittleness · F18 Goal-conflict insider behavior · F19 Alignment faking *(awareness)* · F20 Sandbagging *(awareness)* · F21 Weaponized tool use
+- F15 Inter-agent misalignment · F16 Task-verification skip · F17 System-design brittleness · F18 Goal-conflict insider behavior · F19 Alignment faking *(awareness)* · F20 Sandbagging *(awareness)* · F21 Weaponized tool use · F34 Untrusted-context injection *(indirect prompt injection)*
 
 Tag every entry in your failure log with one code. Now you can aggregate. Now you can learn.
 
@@ -325,7 +328,7 @@ A parallel **5-axis layer** lives at [`packages/core/taxonomy/axes.md`](packages
 
 ### Adoption guides, not just docs
 
-Recipes give you the wiring for seven host platforms plus an eval-harness reference. No hand-waving — concrete file paths, concrete config, a verification step you can actually run. Host recipes live in [`packages/skills/recipes/`](packages/skills/recipes/); the eval-harness reference lives in [`packages/cost/recipes/`](packages/cost/recipes/).
+Recipes give you the wiring for seven host platforms plus eval-harness, mechanical-review, and runtime-boundary references. No hand-waving — concrete file paths, concrete config, a verification step you can actually run. Host recipes live in [`packages/skills/recipes/`](packages/skills/recipes/); the eval-harness reference lives in [`packages/cost/recipes/`](packages/cost/recipes/).
 
 | Recipe | What it covers |
 |--------|----------------|
@@ -338,6 +341,7 @@ Recipes give you the wiring for seven host platforms plus an eval-harness refere
 | [`system-prompt.md`](packages/skills/recipes/system-prompt.md) | Raw API / llama.cpp / Ollama wiring |
 | [`eval-harnesses.md`](packages/cost/recipes/eval-harnesses.md) | Benchmark suite reference: τ²-bench, AgentDojo, AgentHarm, SYCON-Bench, etc. |
 | [`stupid-agent-review.md`](packages/skills/recipes/stupid-agent-review.md) | Cheap-tier mechanical verifier auditing higher-tier output; the runtime behind A/B rule-efficacy testing |
+| [`agent-runtime-boundaries.md`](packages/skills/recipes/agent-runtime-boundaries.md) | Host-side trust boundaries: untrusted-content wrap, read-only default, host-enforced tool permissions, provenance across hand-offs — with a [boundary checklist](docs/evals/agent-boundary-checklist.md) |
 
 ---
 

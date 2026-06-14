@@ -1,0 +1,11 @@
+---
+"@enchanter-ai/vis-meta": minor
+---
+
+Harden VIS for prompt-leak resilience and runtime agent boundaries.
+
+- **New failure code F34 — Untrusted-context injection** (indirect prompt injection): the canonical, host-agnostic code for "content from a data channel obeyed as a principal instruction," generalizing the web-only sub-code F13.1. Full taxonomy doc (`packages/safety/taxonomy/f34-untrusted-context-injection.md`) + runbook (`packages/safety/runbooks/F34.md`), registered in `failure-modes.md` and the taxonomy index.
+- **New recipe `agent-runtime-boundaries.md`**: host-side trust boundaries — untrusted-content wrap, read-only default, host-enforced tool permissions, provenance preservation across multi-agent hand-offs (anti-laundering), with a tool permission matrix and example host manifest. Encodes the principle that the system prompt is not a security boundary; security-critical enforcement lives in the runtime.
+- **New eval artifact `docs/evals/agent-boundary-checklist.md`**: six adversarial pass/fail cases (reveal-system-prompt, indirect instruction in retrieved content, tool call requested by untrusted content, rewritten risky request across agents, state-change without approval, false-completion claim).
+- **enchanter-hooks v0.7 — the runtime-enforcement layer of the above**: four new advisory, fail-open hooks (11 → 15) tied to deterministic Claude Code hook events. `context-taint-scan` (`PostToolUse(Read|Grep|WebFetch)`) flags directive language in retrieved `tool_response` — the runtime half of F34's counter. `delegation-scope-guard` (`SubagentStart`) injects a scope+provenance reminder into a risky subagent's own context (anti-laundering, per `agent-runtime-boundaries.md`). `evidence-gate` (`Stop`) flags unbacked completion claims (the boundary-checklist false-completion case). `dependency-intent-receipt` (`PreToolUse`) asks for supply-chain provenance on dep changes. Plus an obligation-anchor extension to `compact-checkpoint` (approvals / denied approaches / security boundaries / verification debt). New `packages/hooks/tests/verify-hooks.sh` self-test (74 checks).
+- README counts and pointers updated (22 taxonomy-doc'd codes, 10 recipes, 22 runbooks, 15 advisory hooks).
