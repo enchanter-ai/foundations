@@ -6,7 +6,8 @@ Audience: any agent shaping prompts or responses for an LLM. How to format so th
 
 | Target | Format | Why |
 |--------|--------|-----|
-| Claude (any tier) | XML tags | Claude was trained on XML-heavy structured inputs |
+| Claude — task prompt | XML tags | Claude was trained on XML-heavy structured inputs; gradable I/O |
+| Claude — agent/system prompt | Markdown + MUST/NEVER policy blocks | Long-lived behavioral policy, not parseable I/O; matches lab system-prompt practice |
 | GPT-4 / GPT-5 | Markdown + sandwich method | GPT attends best to instructions at both ends |
 | o-series (o1, o3) | Stripped minimal | Long CoT prompts degrade; keep instructions tight |
 | Gemini | Always few-shot | Recall without examples is significantly weaker |
@@ -50,6 +51,19 @@ Example 2: …
 | `<edge_cases>` | Named tricky inputs and their handling |
 
 These tags align with common quality assertions (has_role, has_task, has_format, has_constraints, has_edge_cases). Using them is not decoration; it's how downstream graders pass.
+
+## Claude agent / system prompts (markdown mode)
+
+The XML guidance above is for **task prompts** — gradable I/O with few-shot blocks and `<context>` retrieval. **Long-lived agent and system prompts are different**: they're behavioral policy, not parseable I/O, and the labs' own Claude system prompts (Claude-for-Excel, Claude-in-Cursor) use **markdown + categorical imperatives**, not XML.
+
+Contract for a Claude agent/system prompt:
+
+1. **Markdown sections**, not XML tags — `## Role`, `## Tools`, `## Rules`, `## Workflow`.
+2. **MUST / NEVER policy blocks** for hard rules — `"You MUST read a file before editing it"`, `"NEVER create files unless necessary"`. Categorical, non-negotiable framing; not prose suggestions.
+3. **Declare impossibilities upfront**, not as runtime failures — `"Cannot send emails, access the local filesystem, or run macros."`
+4. **Natural-language tool narration** — tell the user what a tool *does*, don't name it.
+
+Use XML *inside* a markdown agent prompt only for embedded few-shot examples or a structured output schema — the surrounding policy stays markdown.
 
 ## Prefill
 
