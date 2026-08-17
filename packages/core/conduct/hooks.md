@@ -123,7 +123,7 @@ under the appropriate lifecycle event.
 
 ### Pattern 1 — PreToolUse: destructive-op deny
 
-Fires before every tool call. Returns non-zero to block the call; returns 0 to allow.
+Fires before every tool call. Returns exit code 2 to block the call (stderr is fed back to the model); returns 0 to allow. Any other non-zero exit is a non-blocking error — it does NOT cancel the call.
 Use to enforce `conduct/verification.md` § Dry-run for destructive ops without relying
 on the agent's own compliance.
 
@@ -138,7 +138,7 @@ on every Read and Grep call, adding hundreds of no-op invocations per session.
 # Claude Code passes tool name and input via environment variables:
 #   CLAUDE_TOOL_NAME   — e.g. "Bash", "Write", "Edit"
 #   CLAUDE_TOOL_INPUT  — JSON blob of the tool call arguments
-# Exit 1 to deny; exit 0 to allow.
+# Exit 2 to deny; exit 0 to allow. (Exit 1 or any other non-zero = non-blocking error, does NOT deny.)
 
 set -uo pipefail
 
@@ -162,7 +162,7 @@ for pattern in "${DESTRUCTIVE_PATTERNS[@]}"; do
   if echo "$INPUT" | grep -qiE "$pattern"; then
     echo "HOOK DENY: destructive pattern detected ('$pattern')." >&2
     echo "Run the dry-run plan first (conduct/verification.md § Dry-run), then re-issue." >&2
-    exit 1
+    exit 2
   fi
 done
 
@@ -321,7 +321,7 @@ exit 0
 
 ### Advisory vs. enforcing: a design choice
 
-The three patterns above work in both modes. Pattern 1 is enforcing by default (exit 1 denies);
+The three patterns above work in both modes. Pattern 1 is enforcing by default (exit 2 denies);
 patterns 2 and 3 are advisory (exit 0 always). The framework's stance — hooks inform, they don't
 decide — is a default, not a constraint. Teams that want hard gates replace the advisory exit
 with a deny exit and document the choice as a project-level override.
@@ -333,7 +333,7 @@ validated in a non-blocking run.
 
 ## Anti-patterns
 
-- **Blocking hook masquerading as advisory.** Exit non-zero to "warn" — in practice it rejects. Use exit 0 + injection.
+- **Blocking hook masquerading as advisory.** `exit 2` to "warn" rejects the call — use exit 0 + injection instead. (Only `exit 2` blocks; `exit 1` is a non-blocking error surfaced to the user, not a warning mechanism.)
 - **Hook that writes to stdout.** Output shows up in the conversation; confusing and costly.
 - **No matcher.** Fires on every event; unreadable logs, killed performance.
 - **Multiple parallel hooks for the same event.** Order undefined, races possible.
