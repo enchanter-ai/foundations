@@ -7,7 +7,7 @@
 <p>
   <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-3fb950?style=for-the-badge"></a>
   <img alt="7 packages" src="https://img.shields.io/badge/Packages-7-bc8cff?style=for-the-badge">
-  <img alt="37 conduct modules" src="https://img.shields.io/badge/Modules-37-58a6ff?style=for-the-badge">
+  <img alt="33 conduct modules" src="https://img.shields.io/badge/Modules-33-58a6ff?style=for-the-badge">
   <img alt="12 engines" src="https://img.shields.io/badge/Engines-12-d29922?style=for-the-badge">
   <img alt="21 failure codes" src="https://img.shields.io/badge/F--codes-F01%E2%80%93F21-f0883e?style=for-the-badge">
   <a href="https://www.repostatus.org/#active"><img alt="Project Status: Active" src="https://www.repostatus.org/badges/latest/active.svg"></a>
@@ -17,7 +17,7 @@
 
 The behavioral substrate for building durable AI agents — conduct, engines, taxonomy, and the math behind all three.
 
-**37 conduct modules. 12 engines. 21 failure codes. 9 recipes. Zero runtime dependencies.**
+**33 conduct modules. 12 engines. 29 failure codes. 9 recipes. Zero runtime dependencies.**
 
 > A 12-line `paginate()` function has an off-by-one. The PR title says *"fix the off-by-one in pagination."* The agent rewrites it as a `Paginator` class, adds a docstring nobody asked for, renames `perPage` to `n`, and slips the actual one-character fix onto line 4. Type-check passes. Tests pass. The bug is fixed, but the codebase grew a new pattern nobody decided on, and the diff buries the fix under 30 lines of unsolicited refactor (F04 task drift).
 >
@@ -29,7 +29,7 @@ The behavioral substrate for building durable AI agents — conduct, engines, ta
 
 **In plain English:** Most agent stacks ship with prompts, tools, and hopes. The thing that actually keeps an agent from refactoring code you didn't ask it to touch, or pushing to main after you said not to, isn't another tool — it's a behavior rule that survives the long context. vis is the dependency-free pile of those rules, plus the math, taxonomy, and host recipes around them.
 
-**Technically:** 37 conduct modules across 7 conduct packages (`core` / `skills` / `orchestration` / `safety` / `web` / `memory` / `cost`), plus a `hooks` package shipping 6 runtime advisory hooks (the **enchanter-hooks** plugin, installable via the vis marketplace). 12 algorithmic engines with paper-backed derivations (Aho-Corasick pattern detection, Shannon entropy, Beta-Bernoulli trust scoring, Markov drift, Hunt-Szymanski LCS, Zhang-Shasha tree-edit, Tarjan SCC, Wald SPRT, Jaccard-cosine boundary segmentation, contextual LLM bandit, agentproof DFA, sycophancy calibration). 21 named failure codes (F01–F21) with testable counters, mapped to a 5-axis hybrid taxonomy (memory / reflection / planning / action / system) and 21 incident-response runbooks. 9 adoption recipes (Claude Code, OpenAI Agents SDK, Cursor, LangChain, Pydantic-AI, BAML, raw system-prompt, eval-harnesses, stupid-agent-review). Zero runtime dependencies — pure prose + math, loadable into any system that accepts text instructions.
+**Technically:** 33 conduct modules across 7 conduct packages (`core` / `skills` / `orchestration` / `safety` / `web` / `memory` / `cost`), plus a `hooks` package shipping 6 runtime advisory hooks (the **enchanter-hooks** plugin, installable via the vis marketplace). 12 algorithmic engines with paper-backed derivations (Aho-Corasick pattern detection, Shannon entropy, Beta-Bernoulli trust scoring, Markov drift, Hunt-Szymanski LCS, Zhang-Shasha tree-edit, Tarjan SCC, Wald SPRT, Jaccard-cosine boundary segmentation, contextual LLM bandit, agentproof DFA, sycophancy calibration). 21 named failure codes (F01–F21) with testable counters, mapped to a 5-axis hybrid taxonomy (memory / reflection / planning / action / system) and 21 incident-response runbooks. 9 adoption recipes (Claude Code, OpenAI Agents SDK, Cursor, LangChain, Pydantic-AI, BAML, raw system-prompt, eval-harnesses, stupid-agent-review). Zero runtime dependencies — pure prose + math, loadable into any system that accepts text instructions.
 
 ## Origin
 
@@ -47,7 +47,7 @@ The question this framework answers: *Is the rule actually load-bearing?*
 
 Not for:
 
-- Single-shot prompts or weekend prototypes — loading 37 conduct modules into a 300-token task is overkill.
+- Single-shot prompts or weekend prototypes — loading 33 conduct modules into a 300-token task is overkill.
 - Teams who've never observed a production agent drift, hallucinate a tool call, or refuse a benign request. The framework grows by patterns named *after* observed failures; if you haven't seen any, you don't need the counter yet.
 
 ## Contents
@@ -148,7 +148,7 @@ vis/
 └── package.json                     ← changesets meta-package for cross-repo versioning
 ```
 
-Counts as of the latest tag: **37 conduct modules** across core / skills / orchestration / safety / web / memory / cost · **12 engines** in `orchestration/engines/` · **21 failure codes** split F01–F14 (core) and F15–F21 (safety) · **21 runbooks** mirroring the F-codes · **9 recipes** (8 in `skills/recipes/` + `cost/recipes/eval-harnesses.md`) · **6 runtime advisory hooks** in `hooks/` (the **enchanter-hooks** plugin).
+Counts as of the latest tag: **33 conduct modules** across core / skills / orchestration / safety / web / memory / cost · **12 engines** in `orchestration/engines/` · **21 failure codes** split F01–F14 (core) and F15–F21 (safety) · **21 runbooks** mirroring the F-codes · **9 recipes** (8 in `skills/recipes/` + `cost/recipes/eval-harnesses.md`) · **6 runtime advisory hooks** in `hooks/` (the **enchanter-hooks** plugin).
 
 ---
 
