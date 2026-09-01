@@ -9,7 +9,7 @@
   <img alt="7 packages" src="https://img.shields.io/badge/Packages-7-bc8cff?style=for-the-badge">
   <img alt="33 conduct modules" src="https://img.shields.io/badge/Modules-33-58a6ff?style=for-the-badge">
   <img alt="12 engines" src="https://img.shields.io/badge/Engines-12-d29922?style=for-the-badge">
-  <img alt="21 failure codes" src="https://img.shields.io/badge/F--codes-F01%E2%80%93F21-f0883e?style=for-the-badge">
+  <img alt="29 failure codes" src="https://img.shields.io/badge/F--codes-F01%E2%80%93F29-f0883e?style=for-the-badge">
   <a href="https://www.repostatus.org/#active"><img alt="Project Status: Active" src="https://www.repostatus.org/badges/latest/active.svg"></a>
 </p>
 
@@ -29,7 +29,7 @@ The behavioral substrate for building durable AI agents — conduct, engines, ta
 
 **In plain English:** Most agent stacks ship with prompts, tools, and hopes. The thing that actually keeps an agent from refactoring code you didn't ask it to touch, or pushing to main after you said not to, isn't another tool — it's a behavior rule that survives the long context. vis is the dependency-free pile of those rules, plus the math, taxonomy, and host recipes around them.
 
-**Technically:** 33 conduct modules across 7 conduct packages (`core` / `skills` / `orchestration` / `safety` / `web` / `memory` / `cost`), plus a `hooks` package shipping 6 runtime advisory hooks (the **enchanter-hooks** plugin, installable via the vis marketplace). 12 algorithmic engines with paper-backed derivations (Aho-Corasick pattern detection, Shannon entropy, Beta-Bernoulli trust scoring, Markov drift, Hunt-Szymanski LCS, Zhang-Shasha tree-edit, Tarjan SCC, Wald SPRT, Jaccard-cosine boundary segmentation, contextual LLM bandit, agentproof DFA, sycophancy calibration). 21 named failure codes (F01–F21) with testable counters, mapped to a 5-axis hybrid taxonomy (memory / reflection / planning / action / system) and 21 incident-response runbooks. 9 adoption recipes (Claude Code, OpenAI Agents SDK, Cursor, LangChain, Pydantic-AI, BAML, raw system-prompt, eval-harnesses, stupid-agent-review). Zero runtime dependencies — pure prose + math, loadable into any system that accepts text instructions.
+**Technically:** 33 conduct modules across 7 conduct packages (`core` / `skills` / `orchestration` / `safety` / `web` / `memory` / `cost`), plus a `hooks` package shipping 6 runtime advisory hooks (the **enchanter-hooks** plugin, installable via the vis marketplace). 12 algorithmic engines with paper-backed derivations (Aho-Corasick pattern detection, Shannon entropy, Beta-Bernoulli trust scoring, Markov drift, Hunt-Szymanski LCS, Zhang-Shasha tree-edit, Tarjan SCC, Wald SPRT, Jaccard-cosine boundary segmentation, contextual LLM bandit, agentproof DFA, sycophancy calibration). 29 named failure codes (F01–F29) with testable counters, mapped to a 5-axis hybrid taxonomy (memory / reflection / planning / action / system); per-code taxonomy detail files and 21 incident-response runbooks currently cover F01–F21. 9 adoption recipes (Claude Code, OpenAI Agents SDK, Cursor, LangChain, Pydantic-AI, BAML, raw system-prompt, eval-harnesses, stupid-agent-review). Zero runtime dependencies — pure prose + math, loadable into any system that accepts text instructions.
 
 ## Origin
 
@@ -148,7 +148,7 @@ vis/
 └── package.json                     ← changesets meta-package for cross-repo versioning
 ```
 
-Counts as of the latest tag: **33 conduct modules** across core / skills / orchestration / safety / web / memory / cost · **12 engines** in `orchestration/engines/` · **21 failure codes** split F01–F14 (core) and F15–F21 (safety) · **21 runbooks** mirroring the F-codes · **9 recipes** (8 in `skills/recipes/` + `cost/recipes/eval-harnesses.md`) · **6 runtime advisory hooks** in `hooks/` (the **enchanter-hooks** plugin).
+Counts as of the latest tag: **33 conduct modules** across core / skills / orchestration / safety / web / memory / cost · **12 engines** in `orchestration/engines/` · **29 failure codes** (F01–F29) defined in `core/conduct/failure-modes.md`; per-code taxonomy detail files and **21 runbooks** cover F01–F14 (core) and F15–F21 (safety) · **9 recipes** (8 in `skills/recipes/` + `cost/recipes/eval-harnesses.md`) · **6 runtime advisory hooks** in `hooks/` (the **enchanter-hooks** plugin).
 
 ---
 
@@ -303,7 +303,7 @@ A conduct module the subagent never sees can't shape its behavior. [`packages/co
 
 ### A failure taxonomy that compounds
 
-Free-text learning notes don't compound. Tagged ones do. The taxonomy ships 21 canonical codes split across two packages — F01–F14 in [`packages/core/taxonomy/`](packages/core/taxonomy/) (generation / action / reasoning) and F15–F21 in [`packages/safety/taxonomy/`](packages/safety/taxonomy/) (multi-agent + alignment). Each code has a precise signature, a testable counter, and an escalation rule:
+Free-text learning notes don't compound. Tagged ones do. [`packages/core/conduct/failure-modes.md`](packages/core/conduct/failure-modes.md) defines 29 canonical codes (F01–F29); the per-code taxonomy packages currently detail 21 of them, split across two packages — F01–F14 in [`packages/core/taxonomy/`](packages/core/taxonomy/) (generation / action / reasoning) and F15–F21 in [`packages/safety/taxonomy/`](packages/safety/taxonomy/) (multi-agent + alignment). Each code has a precise signature, a testable counter, and an escalation rule:
 
 **Generation failures** — `packages/core/taxonomy/`
 - F01 Sycophancy · F02 Fabrication · F03 Context decay · F04 Task drift · F05 Instruction attenuation
@@ -316,6 +316,9 @@ Free-text learning notes don't compound. Tagged ones do. The taxonomy ships 21 c
 
 **Multi-agent and alignment failures** — `packages/safety/taxonomy/`
 - F15 Inter-agent misalignment · F16 Task-verification skip · F17 System-design brittleness · F18 Goal-conflict insider behavior · F19 Alignment faking *(awareness)* · F20 Sandbagging *(awareness)* · F21 Weaponized tool use
+
+**Cross-session and build-discipline failures** — defined in `packages/core/conduct/failure-modes.md` (no per-code detail file yet)
+- F22 Capability-absence substitution · F23 Sunk-cost iteration · F24 Substrate-blindness · F25 Verdict inflation · F26 Reversibility blindness · F27 Stale-precedent reliance · F28 Skill-discoverability failure · F29 Premise-unvalidated build
 
 Tag every entry in your failure log with one code. Now you can aggregate. Now you can learn.
 
@@ -401,7 +404,7 @@ See [`docs/architecture/README.md`](docs/architecture/README.md) for the structu
 
 Two architectural questions that earlier versions of the framework deferred have now been resolved:
 
-- **Taxonomy structure (resolved 2026-05-05).** Flat F-codes (current) AND 5-axis modular structure (AgentErrorTaxonomy, arxiv 2509.25370) — both layers ship. Hybrid path: F01–F21 stays as the operational identifier; [`packages/core/taxonomy/axes.md`](packages/core/taxonomy/axes.md) maps each code to one of memory / reflection / planning / action / system. Documented in [`docs/adr/0002-taxonomy-expansion.md`](docs/adr/0002-taxonomy-expansion.md).
+- **Taxonomy structure (resolved 2026-05-05).** Flat F-codes (current) AND 5-axis modular structure (AgentErrorTaxonomy, arxiv 2509.25370) — both layers ship. Hybrid path: F01–F29 stays as the operational identifier; [`packages/core/taxonomy/axes.md`](packages/core/taxonomy/axes.md) maps each code to one of memory / reflection / planning / action / system. Documented in [`docs/adr/0002-taxonomy-expansion.md`](docs/adr/0002-taxonomy-expansion.md).
 - **F19/F20 placement (resolved 2026-05-05).** Awareness codes stay in `packages/safety/taxonomy/` (alongside F15–F18 and F21) with explicit `(awareness)` flag at the top of each file. Adopters who don't need alignment-research codes can filter by tag rather than skip the package.
 
 What remains genuinely external — and only adopters can close:
@@ -434,7 +437,7 @@ Issues and PRs welcome. The contribution bar:
 
 - **New conduct module:** justify why it doesn't fit an existing module. Pick the package whose scope the module belongs to (core / skills / orchestration / safety / web / memory / cost). The framework is dependency-free; modules are prose, not packages.
 - **New engine:** include reference, complexity, failure modes, and pseudocode. No language-specific runtime calls. Engines ship in `packages/orchestration/engines/`.
-- **New failure code (F22+):** observed in 3+ independent contexts, testable counter, no overlap with existing codes. See [`packages/core/taxonomy/README.md`](packages/core/taxonomy/README.md) § How to extend. Multi-agent / alignment codes go in `packages/safety/taxonomy/`.
+- **New failure code (F30+):** observed in 3+ independent contexts, testable counter, no overlap with existing codes. See [`packages/core/taxonomy/README.md`](packages/core/taxonomy/README.md) § How to extend. Multi-agent / alignment codes go in `packages/safety/taxonomy/`.
 - **New recipe:** concrete adoption steps + a verification check. Host recipes go in `packages/skills/recipes/`.
 
 See [`packages/core/CLAUDE.md`](packages/core/CLAUDE.md) for repo-level editing rules. The framework is dogfooded — contributors are expected to follow the conduct while editing the conduct.
