@@ -93,12 +93,11 @@ The repo is a packages-monorepo. Each package owns a slice of the framework (con
 vis/
 ├── packages/
 │   ├── core/                        ← foundation: layering invariants + canonical taxonomy + ABI tooling
-│   │   ├── conduct/                 ← 20 baseline behavior modules (discipline, context, verification,
+│   │   ├── conduct/                 ← 18 baseline behavior modules (discipline, context, verification,
 │   │   │                              delegation, tool-use, hooks, precedent, precedent-freshness,
 │   │   │                              tier-sizing, doubt-engine, failure-modes, capability-fidelity,
 │   │   │                              verdict-calibration, metacognition, reversibility-foresight,
-│   │   │                              prior-art-discovery, substrate-consumption, sunk-cost-iteration,
-│   │   │                              context-budget)
+│   │   │                              prior-art-discovery, substrate-consumption, sunk-cost-iteration)
 │   │   ├── taxonomy/                ← F01–F14 (generation / action / reasoning) + axes.md
 │   │   ├── runbooks/                ← F01–F14 incident-response runbooks
 │   │   ├── scripts/                 ← conduct-abi-check.sh, conduct-sync.sh
@@ -128,8 +127,7 @@ vis/
 │   │   └── operator-wiring-2026-05/ ← Day-1 Datadog / Sentry / PagerDuty / Slack / Splunk wiring
 │   ├── web/                         ← web-fetched-evidence discipline
 │   │   └── conduct/                 ← web-fetch, research-pipeline, source-discipline,
-│   │                                  citation-verification, mcp-research-discipline,
-│   │                                  adaptive-adversary-baseline, provider-resilience
+│   │                                  citation-verification, mcp-research-discipline
 │   ├── memory/                      ← memory hygiene
 │   │   └── conduct/                 ← memory-hygiene.md
 │   ├── cost/                        ← cost + latency + eval harnesses
